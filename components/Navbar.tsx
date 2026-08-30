@@ -2,15 +2,18 @@
 
 import { useState, useEffect } from "react";
 import { AccountPanel } from "./AccountPanel";
-import { useBountyData } from "@/lib/hooks/useBounty";
+import { useAllBounties } from "@/lib/hooks/useBounty";
 import { Logo, LogoMark } from "./Logo";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   
-  // Update: useBountyData now returns a single bounty object, not an array
-  const { data: bounty } = useBountyData();
+  // 1. Grab the contract address straight from your environment variables
+  const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || "";
+  
+  // 2. Fetch the real blockchain data
+  const { data: bounties } = useAllBounties(contractAddress);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,9 +44,10 @@ export function Navbar() {
   };
   const borderRadius = getBorderRadius();
 
-  // Update: Adjusted logic for a single bounty instead of an array
-  const totalBounties = bounty ? 1 : 0;
-  const paidBounties = (bounty && !bounty.is_open) ? 1 : 0;
+  // 3. Convert the smart contract dictionary into an array and calculate real stats!
+  const bountyArray = bounties ? Object.values(bounties) : [];
+  const totalBounties = bountyArray.length;
+  const paidBounties = bountyArray.filter((b: any) => b.is_open === false).length;
 
   return (
     <header
@@ -97,7 +101,7 @@ export function Navbar() {
               {/* Center: Stats */}
               <div className="hidden md:flex items-center gap-6 text-sm">
                 <div className="flex items-center gap-2">
-                  <span className="text-muted-foreground">Active Task:</span>
+                  <span className="text-muted-foreground">Active Tasks:</span>
                   <span className="text-foreground font-bold text-accent">{totalBounties}</span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -108,7 +112,6 @@ export function Navbar() {
 
               {/* Right: Actions */}
               <div className="flex items-center gap-3">
-                {/* CreateBountyModal safely removed from here */}
                 <AccountPanel />
               </div>
             </div>
