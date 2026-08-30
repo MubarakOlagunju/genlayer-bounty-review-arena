@@ -72,7 +72,7 @@ export default function BountyDashboard({ contractAddress, userAddress }: Dashbo
           <div key={id} className="bg-gray-900 border border-gray-800 rounded-xl p-6 shadow-lg transition hover:border-gray-700">
             <div className="flex justify-between items-start mb-4">
               <div>
-                <h3 className="text-xl font-bold text-white">#{id} - {bounty.title}</h3>
+                <h3 className="text-xl font-bold text-white">{id} - {bounty.title}</h3>
                 <p className="text-sm text-gray-400 mt-1">
                   Creator: {bounty.creator.slice(0, 6)}...{bounty.creator.slice(-4)}
                 </p>
