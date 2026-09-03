@@ -78,7 +78,7 @@ export default function BountyDashboard({ contractAddress, userAddress }: Dashbo
                 </p>
               </div>
               <div className="bg-blue-900/50 border border-blue-500 text-blue-200 px-3 py-1 rounded-full text-sm font-semibold">
-                Reward: {Number(bounty.reward_amount)} Tokens
+                {bounty.is_open ? `Escrow Locked: ${Number(bounty.reward_escrow)} Tokens` : "Escrow Paid Out"}
               </div>
             </div>
             
@@ -113,7 +113,7 @@ export default function BountyDashboard({ contractAddress, userAddress }: Dashbo
             ) : (
               <div className="mt-4 pt-4 border-t border-gray-800">
                 <span className="inline-flex items-center text-green-400 font-medium bg-green-900/30 px-3 py-1 rounded-lg border border-green-800">
-                  ✓ Completed! Won by: {bounty.winner_address.slice(0, 6)}...{bounty.winner_address.slice(-4)}
+                  ✓ Paid to: {bounty.winner_address.slice(0, 6)}...{bounty.winner_address.slice(-4)}
                 </span>
               </div>
             )}

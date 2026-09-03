@@ -41,7 +41,7 @@ export default function SubmissionHistory() {
                     ? "bg-red-900/30 text-red-400 border-red-800/50"
                     : "bg-gray-800 text-gray-300 border-gray-700"
                 }`}>
-                  {sub.status === "Evaluated & Paid" ? "✓ Evaluated & Paid" : `✗ ${sub.status}`}
+                  {sub.status === "Evaluated & Paid" ? "✓ Escrow Paid Out" : `✗ ${sub.status}`}
                 </span>
               </div>
             </div>

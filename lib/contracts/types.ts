@@ -3,9 +3,10 @@
  */
 
 export interface BountyData {
+  creator: string;
   title: string;
   criteria: string;
-  reward_amount: bigint | number | string;
+  reward_escrow: bigint | number | string;
   is_open: boolean;
   winner_address: string;
   winning_submission_url: string;
