@@ -87,3 +87,18 @@ The complete Intelligent Contract source code can be found in `/contracts/bounty
 
 - **Evaluation & Validator Logic**: Utilizes GenVM's `gl.nondet.web.render` to read the submitted URL, and `gl.nondet.exec_prompt` to achieve AI consensus on whether the submission strictly meets the creator's criteria.
 - **State Transitions & Payout**: Upon a successful AI consensus vote, the contract autonomously closes the bounty (`is_open = False`), logs the `winner_address`, and immediately executes `gl.contract.transfer` to release the escrowed funds to the developer.
+
+## Escrow & AI Evaluation System
+
+This platform utilizes a zero-trust, automated escrow system powered by the GenLayer Virtual Machine (GenVM).
+
+* **Secure Escrow:** Bounty funds are cryptographically locked in a per-bounty state upon minting.
+* **Incorruptible AI Judge:** Submissions are evaluated by GenVM against the creator's strict criteria.
+* **Automated Payouts:** If the AI returns an `ACCEPTED` verdict, the smart contract zeroes out the escrow and instantly transfers the funds to the developer. If rejected, funds remain protected.
+
+### Running Local Tests
+The smart contract logic, including AI environment mocking and escrow protection, is mathematically verified using `pytest`.
+
+```bash
+pip install genlayer pytest
+pytest gen_contracts/test_contract.py
